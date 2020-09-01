@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+
+import sys
+
+import argparse
+
+import myutils
+
+# Script for snake_numbering
+def get_args():
+    parser = argparse.ArgumentParser(description="Gives overall number for snake style count")
+    parser.add_argument("-p", "--pos", default=1, help="Draft Position")
+    parser.add_argument("-t", "--nteams", default=1, help="Number of Teams")
+    parser.add_argument("-r", "--nrounds", default=1, help="Number of Rounds")
+    parser.add_argument("-d", "--debug", action='store_true', help="Increased verbosity")
+
+    args = parser.parse_args()
+    return int(args.pos), int(args.nteams), int(args.nrounds), args.debug
+
+
+def isodd( num ):
+    return num & 1
+
+
+def snake_numbering( pos, numteams, roundnum, debug = False ):
+    if ( isodd( roundnum ) ):
+        return (roundnum-1)*numteams + pos 
+        
+    return (roundnum-1)*numteams + (numteams - pos + 1) 
+
+
+def pick_numbers( pos, numteams, numrounds, debug = False ):
+    picks = []
+    print( "For {} teams, {} rounds and draft position {}, you get the following overall picks:".format( numteams, numrounds, pos ) )
+    for roundnum in range(1, numrounds+1):
+        overall_pick_num = snake_numbering( pos, numteams, roundnum, debug )
+        print( "Round {}, Draft Pos {} ---> Overall Pick #{}".format( roundnum, pos, overall_pick_num ) )
+
+
+if __name__ == '__main__':
+    pos, numteams, numrounds, debug = get_args()   
+    pick_numbers( pos, numteams, numrounds, debug )
