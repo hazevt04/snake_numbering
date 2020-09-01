@@ -10,8 +10,8 @@ import myutils
 def get_args():
     parser = argparse.ArgumentParser(description="Gives overall number for snake style count")
     parser.add_argument("-p", "--pos", default=1, help="Draft Position")
-    parser.add_argument("-t", "--nteams", default=1, help="Number of Teams")
-    parser.add_argument("-r", "--nrounds", default=1, help="Number of Rounds")
+    parser.add_argument("-t", "--nteams", default=10, help="Number of Teams")
+    parser.add_argument("-r", "--nrounds", default=16, help="Number of Rounds")
     parser.add_argument("-d", "--debug", action='store_true', help="Increased verbosity")
 
     args = parser.parse_args()
